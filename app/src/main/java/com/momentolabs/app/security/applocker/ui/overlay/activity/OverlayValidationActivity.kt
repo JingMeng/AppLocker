@@ -42,7 +42,7 @@ class OverlayValidationActivity : BaseActivity<OverlayValidationViewModel>() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_overlay_validation)
 
-        updateLaunchingAppIcon(intent.getStringExtra(KEY_PACKAGE_NAME))
+        updateLaunchingAppIcon(intent.getStringExtra(KEY_PACKAGE_NAME) ?: packageName)
 
         frontPictureLiveData = FrontPictureLiveData(application, viewModel.getIntruderPictureImageFile())
 
@@ -82,6 +82,7 @@ class OverlayValidationActivity : BaseActivity<OverlayValidationViewModel>() {
             when (it) {
                 is FrontPictureState.Taken -> OverlayAnalytics.sendIntrudersPhotoTakenEvent(this)
                 is FrontPictureState.Error -> OverlayAnalytics.sendIntrudersCameraFailedEvent(this)
+                is FrontPictureState.Started, is FrontPictureState.Destroyed -> Unit
             }
         })
     }

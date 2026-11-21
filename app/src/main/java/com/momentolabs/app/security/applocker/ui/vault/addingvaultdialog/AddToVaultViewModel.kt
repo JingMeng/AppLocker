@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.momentolabs.app.security.applocker.data.database.vault.VaultMediaType
 import com.momentolabs.app.security.applocker.repository.VaultRepository
@@ -68,7 +68,7 @@ class AddToVaultViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { fakeProgress.start() }
             .doOnComplete { fakeProgress.complete() }
-            .subscribe({}, { Crashlytics.logException(it) })
+            .subscribe({}, { FirebaseCrashlytics.getInstance().recordException(it) })
     }
 
     fun getAddToVaultViewStateLiveData(): LiveData<AddToVaultViewState> =
@@ -80,6 +80,6 @@ class AddToVaultViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { MediaScannerConnector.scan(context = app, filePath = filePath) },
-                { Crashlytics.logException(it) })
+                { FirebaseCrashlytics.getInstance().recordException(it) })
     }
 }

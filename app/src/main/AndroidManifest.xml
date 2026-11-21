@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.momentolabs.app.security.applocker">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -34,7 +33,7 @@
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -79,13 +78,13 @@
 
         <service android:name=".service.AppLockerService" />
 
-        <receiver android:name=".service.receiver.BootCompleteReceiver">
+        <receiver android:name=".service.receiver.BootCompleteReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ui.callblocker.service.CallReceiver">
+        <receiver android:name=".ui.callblocker.service.CallReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
@@ -96,7 +95,7 @@
 
         <service
             android:name=".ui.callblocker.service.CallService"
-            android:permission="android.permission.BIND_INCALL_SERVICE">
+            android:permission="android.permission.BIND_INCALL_SERVICE" android:exported="true">
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
                 android:value="false" />
@@ -107,7 +106,7 @@
 
         <service
             android:name=".ui.callblocker.service.CallBlockerScreeningService"
-            android:permission="android.permission.BIND_SCREENING_SERVICE">
+            android:permission="android.permission.BIND_SCREENING_SERVICE" android:exported="true">
             <intent-filter>
                 <action android:name="android.telecom.CallScreeningService" />
             </intent-filter>

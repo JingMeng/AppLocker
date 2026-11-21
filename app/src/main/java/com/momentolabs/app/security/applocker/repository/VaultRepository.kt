@@ -1,7 +1,7 @@
 package com.momentolabs.app.security.applocker.repository
 
 import android.content.Context
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.android.gms.measurement.module.Analytics
 import com.momentolabs.app.security.applocker.data.database.vault.VaultMediaDao
 import com.momentolabs.app.security.applocker.data.database.vault.VaultMediaEntity
@@ -120,7 +120,7 @@ class VaultRepository @Inject constructor(
                         }
                     },
                     {
-                        Crashlytics.logException(it)
+                        FirebaseCrashlytics.getInstance().recordException(it)
                         emitter.onComplete()
                     })
 
@@ -198,6 +198,7 @@ class VaultRepository @Inject constructor(
                             subscriber.onNext(vaultMediaEntity)
                             subscriber.onComplete()
                         }
+                        is CryptoProcess.Processing -> Unit
                     }
                 }
         }, BackpressureStrategy.DROP)

@@ -144,7 +144,6 @@ class BrowserActivity : BaseActivity<BrowserViewModel>(), BookmarksDialog.Bookma
             webViewClient = browserClient
             settings.javaScriptEnabled = true
             settings.cacheMode = WebSettings.LOAD_NO_CACHE
-            settings.setAppCacheEnabled(false)
             clearHistory();
             clearCache(true)
 
